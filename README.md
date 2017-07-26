@@ -2,8 +2,9 @@
 Self-Driving Car Engineer Nanodegree Program
 ---
 ## Reflection
-
 ## P component - Proportional Control
+The P component controls the car on the basis of cross track error (CTE). The further the car is away from the central line of the lane, the more steering it will take. A larger P makes the car more sensitive to the CTE and turns the car back to the center more quickly. However, the side effect of that is the car will oscillate to a large extent. If the P value is set too small, then the car may not be able to react quick enough to CTE and go off the track in the big curve.
+## I component - Integral Control
 
 ---
 
