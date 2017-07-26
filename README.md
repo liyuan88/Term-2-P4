@@ -9,9 +9,18 @@ p_error = cte;
 
 A larger P makes the car more sensitive to the CTE and turns the car back to the center more quickly. However, the side effect of that is the car will oscillate to a large extent. If the P value is set too small, then the car may not be able to react quick enough to CTE and go off the track in the big curve.
 ## I component - Integral Control
-The I component, as suggested by its name, takes into account the summation of all the CTEs. The intuition is that if a car is always on the left side of the lane, we need a control to offset this systematic bias. The bias could be the result of the mechanical drift and etc. A higher I, similar to the effect of proportional control, makes the car waving wildly and a smaller I may prevent the car to correct the bias adequately and keep the car in one side of the lane for a long time.
+The I component, as suggested by its name, takes into account the summation of all the CTEs. The intuition is that if a car is always on the left side of the lane, we need a control to offset this systematic bias. The bias could be the result of the mechanical drift and etc.
+
+i_error = sum(cte);
+
+A higher I, similar to the effect of proportional control, makes the car waving wildly and a smaller I may prevent the car to correct the bias adequately and keep the car in one side of the lane for a long time.
 ## D component - Differential Control
-The D component reacts to the delta of the CTE. When the car quickly turning back to the center of the lane, the differential control counters the steering to prevent overshooting and smooth the driving experience. The P control alone overshoots inevitably and this could be solved by adding an adequate differential control. 
+The D component reacts to the delta of the CTE. When the car quickly turning back to the center of the lane, the differential control counters the steering to prevent overshooting and smooth the driving experience. The P control alone overshoots inevitably and this could be solved by adding an adequate differential control.
+
+d_error = cte - p_error;
+
+A very high D component will counter the P component significantly. A small D component may not be enough to prevent the overshooting problem.
+
 
 
 ---
