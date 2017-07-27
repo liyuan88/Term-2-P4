@@ -25,24 +25,24 @@ A very high D component will counter the P component significantly. A small D co
 I decide to manually tune the parameters to give myself my sense as to the effect of the 3 control parameters. I start with (1,1,1) and tune the parameters based on the performance. Below is the tuning process.
 
 * (1,1,1) 
- - The car starts off to steer left and once across the center line, steering to the right and go off the lane.
- - The oscillating behavior encourage me to reduce both P & I to 0.5.
+  - The car starts off to steer left and once across the center line, steering to the right and go off the lane.
+  - The oscillating behavior encourage me to reduce both P & I to 0.5.
 * (0.5,0.5,1)
- - Does not help... The car still waves wildly.
- - Intuitively, Integral control should be much smaller than P & D intuitively as it times the total of CTE. We need to set I at a relatively small number to prevent dominating the entire control. Similarly, D component should be the largest of the three as the delta of CTE is the smallest. So the value of the three controls should be D>P>I.
- - So I adjust the parameters to be (0.5,0.25,2)
+  - Does not help... The car still waves wildly.
+  - Intuitively, Integral control should be much smaller than P & D intuitively as it times the total of CTE. We need to set I at a relatively small number to prevent dominating the entire control. Similarly, D component should be the largest of the three as the delta of CTE is the smallest. So the value of the three controls should be D>P>I.
+  - So I adjust the parameters to be (0.5,0.25,2)
 * (0.5,0.25,2)
- - The car still circles around. Further cut I as it should be much smaller than P & D.
+  - The car still circles around. Further cut I as it should be much smaller than P & D.
 * (0.5,0.125,2)
- - No improvement. Further cut I.
+  - No improvement. Further cut I.
 * (0.5,0.06,2)
- - Not much improvement in the simulator but the steering value decreases significantly in the terminal. The upper bound of the steering goes down from 300 in (0.5,0.125,2) to 30 in (0.5,0.06,2). We are in the right direction!
+  - Not much improvement in the simulator but the steering value decreases significantly in the terminal. The upper bound of the steering goes down from 300 in (0.5,0.125,2) to 30 in (0.5,0.06,2). We are in the right direction!
 * (0.5,0.01,2)
- - Great improvement! The car can now go through most of the track though it is waving quite a bit. This suggests me increase the D.
+  - Great improvement! The car can now go through most of the track though it is waving quite a bit. This suggests me increase the D.
 * (0.5,0.01,4)
- - Mostly good but still experiencing some sharp steering during the run. When the car is moving away from the center line to a certain extent, it always make a sharp steering. So I further cut P & I.
+  - Mostly good but still experiencing some sharp steering during the run. When the car is moving away from the center line to a certain extent, it always make a sharp steering. So I further cut P & I.
 * (0.25, 0.005, 4)
- - Looks good! But the driving is still not very stable in some sharp turns. So I keep tuning the parameters by raising them individually up and down by a small amount. The final result is (0.2,0.001,3.5).
+  - Looks good! But the driving is still not very stable in some sharp turns. So I keep tuning the parameters by raising them individually up and down by a small amount. The final result is (0.2,0.001,3.5).
 
  
  
