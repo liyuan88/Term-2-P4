@@ -40,7 +40,7 @@ I decide to manually tune the parameters to give myself my sense as to the effec
 * (0.5,0.01,2)
   - Great improvement! The car can now go through most of the track though it is waving quite a bit. This suggests me increase the D.
 * (0.5,0.01,4)
-  - Mostly good but still experiencing some sharp steering during the run. When the car is moving away from the center line to a certain extent, it always make a sharp steering. So I further cut P & I.
+  - Mostly good but still experiencing some sharp steering during the run. When the car is moving away from the center line to a certain extent, it always makes a sharp steering. So I further cut P & I.
 * (0.25, 0.005, 4)
   - Looks good! But the driving is still not very stable in some sharp turns. So I keep tuning the parameters by raising them individually up and down by a small amount. The final result is (0.2,0.001,3.5).
 
