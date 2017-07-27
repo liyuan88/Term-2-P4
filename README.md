@@ -5,22 +5,47 @@ Self-Driving Car Engineer Nanodegree Program
 ## P component - Proportional Control
 The P component controls the car on the basis of cross track error (CTE). The further the car is away from the central line of the lane, the more steering it will take. 
 
-p_error = cte;
+* p_error = cte;
 
 A larger P makes the car more sensitive to the CTE and turns the car back to the center more quickly. However, the side effect of that is the car will oscillate to a large extent. If the P value is set too small, then the car may not be able to react quick enough to CTE and go off the track in the big curve.
 ## I component - Integral Control
 The I component, as suggested by its name, takes into account the summation of all the CTEs. The intuition is that if a car is always on the left side of the lane, we need a control to offset this systematic bias. The bias could be the result of the mechanical drift and etc.
 
-i_error = sum(cte);
+* i_error = sum(cte);
 
 A higher I, similar to the effect of proportional control, makes the car waving wildly and a smaller I may prevent the car to correct the bias adequately and keep the car in one side of the lane for a long time.
 ## D component - Differential Control
 The D component reacts to the delta of the CTE. When the car quickly turning back to the center of the lane, the differential control counters the steering to prevent overshooting and smooth the driving experience. The P control alone overshoots inevitably and this could be solved by adding an adequate differential control.
 
-d_error = cte - p_error;
+* d_error = cte - p_error;
 
 A very high D component will counter the P component significantly. A small D component may not be enough to prevent the overshooting problem.
 
+## Parameter Tuning
+I decide to manually tune the parameters to give myself my sense as to the effect of the 3 control parameters. I start with (1,1,1) and tune the parameters based on the performance. Below is the tuning process.
+
+* (1,1,1) 
+ - The car starts off to steer left and once across the center line, steering to the right and go off the lane.
+ - The oscillating behavior encourage me to reduce both P & I to 0.5.
+* (0.5,0.5,1)
+ - Does not help... The car still waves wildly.
+ - Intuitively, Integral control should be much smaller than P & D intuitively as it times the total of CTE. We need to set I at a relatively small number to prevent dominating the entire control. Similarly, D component should be the largest of the three as the delta of CTE is the smallest. So the value of the three controls should be D>P>I.
+ - So I adjust the parameters to be (0.5,0.25,2)
+* (0.5,0.25,2)
+ - The car still circles around. Further cut I as it should be much smaller than P & D.
+* (0.5,0.125,2)
+ - No improvement. Further cut I.
+* (0.5,0.06,2)
+ - Not much improvement in the simulator but the steering value decreases significantly in the terminal. The upper bound of the steering goes down from 300 in (0.5,0.125,2) to 30 in (0.5,0.06,2). We are in the right direction!
+* (0.5,0.01,2)
+ - Great improvement! The car can now go through most of the track though it is waving quite a bit. This suggests me increase the D.
+* (0.5,0.01,4)
+ - Mostly good but still experiencing some sharp steering during the run. When the car is moving away from the center line to a certain extent, it always make a sharp steering. So I further cut P & I.
+* (0.25, 0.005, 4)
+ - Looks good! But the driving is still not very stable in some sharp turns. So I keep tuning the parameters by raising them individually up and down by a small amount. The final result is (0.2,0.001,3.5).
+
+ 
+ 
 
 
 ---
